@@ -8,6 +8,16 @@ import java.util.concurrent.Callable;
         description = "Compares two configuration files and shows a difference.")
 public class App implements Callable<Integer> {
 
+
+    @CommandLine.Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "stylish";
+
+    @CommandLine.Parameters(index = "0", description = "path to first file")
+    private String filePath1;
+
+    @CommandLine.Parameters(index = "1", description = "path to second file")
+    private String filePath2;
+
     @Override
     public Integer call() throws Exception {
         return 0;
