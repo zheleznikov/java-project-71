@@ -11,16 +11,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-tasks.test {
-    useJUnitPlatform()
+    implementation ("info.picocli:picocli:4.7.5")
 }
 
 application {
-    mainClass.set("hexlet.code.App")
+    mainClass = "hexlet.code.App"
 }
 
 tasks.getByName("run", JavaExec::class) {
