@@ -22,6 +22,6 @@ jobs:
       #      - run: ./gradlew checkstyleMain
       #      - run: ./gradlew test
       - name: Build App
-        run: ./gradlew clean build
+        run: chmod +x ./gradlew clean build
 
 
