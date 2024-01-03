@@ -14,40 +14,45 @@ import java.util.TreeMap;
 public class Differ {
 
     public static String generate(String filePath1, String filePath2) {
-        byte[] file1 = getFileAsByteArray(filePath1);
-        byte[] file2 = getFileAsByteArray(filePath2);
+        try {
+            byte[] file1 = getFileAsByteArray(filePath1);
+            byte[] file2 = getFileAsByteArray(filePath2);
 
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> map1 = getMapDependsOnJson(mapper, file1);
-        Map<String, String> map2 = getMapDependsOnJson(mapper, file2);
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> map1 = getMapDependsOnJson(mapper, file1);
+            Map<String, Object> map2 = getMapDependsOnJson(mapper, file2);
 
-        Map<String, String> target = createTargetMap(map1, map2);
+            Map<String, Object> target = createTargetMap(map1, map2);
+            return mapper.writeValueAsString(target);
 
-        return getResultAsString(mapper, target);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-    private static Map<String, String> createTargetMap(Map<String, String> map1, Map<String, String> map2) {
+    private static Map<String, Object> createTargetMap(Map<String, Object> map1, Map<String, Object> map2) {
         String noChangedValue = "  ";
         String updatedValueInJson1 = "- ";
         String updatedValueInJson2 = "+ ";
 
-        Comparator<String> jsonKeysComparator = (o1Original, o2original) -> {
-            String o1Cropped = new StringBuilder(o1Original).substring(2).toLowerCase();
-            String o2Cropped = new StringBuilder(o2original).substring(2).toLowerCase();
+        Comparator<String> jsonKeyComparator = (original1, original2) -> {
+            String cropped1 = new StringBuilder(original1).substring(2).toLowerCase();
+            String cropped2 = new StringBuilder(original2).substring(2).toLowerCase();
 
-            return o1Cropped.equals(o2Cropped)
-                    ? o2original.toLowerCase().compareTo(o1Original.toLowerCase())
-                    : o1Cropped.compareTo(o2Cropped);
+            return cropped1.equals(cropped2)
+                    ? original2.toLowerCase().compareTo(original1.toLowerCase())
+                    : cropped1.compareTo(cropped2);
         };
 
-        Map<String, String> result = new TreeMap<>(jsonKeysComparator);
+        Map<String, Object> result = new TreeMap<>(jsonKeyComparator);
 
-        for (Entry<String, String> entry : map1.entrySet()) {
+        for (Entry<String, Object> entry : map1.entrySet()) {
             String key = entry.getKey();
-            String value = String.valueOf(entry.getValue());
+            Object value = entry.getValue();
 
             if (map2.containsKey(key)) {
-                String valueInMap2 = String.valueOf(map2.get(key));
+                Object valueInMap2 = map2.get(key);
 
                 if (value.equals(valueInMap2)) {
                     result.put(noChangedValue + key, value);
@@ -62,12 +67,11 @@ public class Differ {
             }
         }
 
-        for (Entry<String, String> entry : map2.entrySet()) {
+        for (Entry<String, Object> entry : map2.entrySet()) {
             String key = entry.getKey();
-            String value = String.valueOf(entry.getValue());
 
             if (!result.containsKey(noChangedValue + key)) {
-                result.put(updatedValueInJson2 + key, value);
+                result.put(updatedValueInJson2 + key, entry.getValue());
             }
         }
 
@@ -83,7 +87,7 @@ public class Differ {
         }
     }
 
-    private static Map<String, String> getMapDependsOnJson(ObjectMapper mapper, byte[] arr) {
+    private static Map<String, Object> getMapDependsOnJson(ObjectMapper mapper, byte[] arr) {
         try {
             return mapper.readValue(arr, Map.class);
 
@@ -92,20 +96,9 @@ public class Differ {
         }
     }
 
-    private static String getResultAsString(ObjectMapper mapper, Map<String, String> target) {
-        try {
-            return mapper
-                    .writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(target)
-                    .replaceAll("\\\"", "")
-                    .replaceAll(" :", ":");
 
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String path1 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\main\\resources\\file1.json";
         String path2 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\main\\resources\\file2.json";
         String res = generate(path1, path2);

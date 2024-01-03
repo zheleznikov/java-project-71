@@ -1,0 +1,22 @@
+name: Build app
+run-name: ${{ github.actor }} build app
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '20'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+      #      - run: ./gradlew checkstyleMain
+      #      - run: ./gradlew test
+      - run: ./gradlew clean build
