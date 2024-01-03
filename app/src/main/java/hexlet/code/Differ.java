@@ -99,8 +99,8 @@ public class Differ {
 
 
     public static void main(String[] args) {
-        String path1 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\main\\resources\\file1.json";
-        String path2 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\main\\resources\\file2.json";
+        String path1 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\testData\\file1.json";
+        String path2 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\testData\\file2.json";
         String res = generate(path1, path2);
         System.out.println(res);
     }
