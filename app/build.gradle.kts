@@ -12,6 +12,8 @@ repositories {
 
 dependencies {
     implementation ("info.picocli:picocli:4.7.5")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
+    implementation("commons-io:commons-io:2.13.0")
 }
 
 application {
