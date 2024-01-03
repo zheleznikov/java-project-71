@@ -21,7 +21,9 @@ jobs:
           gradle-version: 8.5
       #      - run: ./gradlew checkstyleMain
       #      - run: ./gradlew test
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
       - name: Build App
-        run: chmod +x ./gradlew clean build
+        run: ./gradlew clean build
 
 
