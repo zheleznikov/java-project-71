@@ -11,23 +11,25 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import static org.apache.commons.io.FilenameUtils.getExtension;
+
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) {
-        try {
+    public static String generate(String filePath1, String filePath2, String format) {
             byte[] file1 = getFileAsByteArray(filePath1);
             byte[] file2 = getFileAsByteArray(filePath2);
 
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> map1 = getMapDependsOnJson(mapper, file1);
-            Map<String, Object> map2 = getMapDependsOnJson(mapper, file2);
+            Map<String, Object> map1 = Parser.createMap(file1, getExtension(filePath1));
+            Map<String, Object> map2 = Parser.createMap(file2, getExtension(filePath2));
 
             Map<String, Object> target = createTargetMap(map1, map2);
-            return mapper.writeValueAsString(target);
 
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+            return switch (format) {
+                case "json" -> createJson(target);
+                case "plain" -> "";
+                default -> crateStylish(target);
+            };
+
 
     }
 
@@ -87,23 +89,46 @@ public class Differ {
         }
     }
 
-    private static Map<String, Object> getMapDependsOnJson(ObjectMapper mapper, byte[] arr) {
-        try {
-            return mapper.readValue(arr, Map.class);
 
-        } catch (IOException e) {
+
+
+    private static String createJson(Map<String, Object> target) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(target);
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private static String crateStylish(Map<String, Object> target) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(target)
+                    .replaceAll("\\\"", "")
+                    .replaceAll(" :", ":")
+                    .replaceAll(",", "");
 
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void main(String[] args) {
-        String path1 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\"
+        String path1Json = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\"
                 + "testData\\file1.json";
-        String path2 = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\"
+        String path2Json = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\"
                 + "testData\\file2.json";
-        String res = generate(path1, path2);
+
+        String path1Yml = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\"
+                + "testData\\file1.yml";
+        String path2Yml = "C:\\Users\\fraud\\Documents\\git\\java-project-71\\app\\src\\test\\resources\\"
+                + "testData\\file2.yml";
+
+
+        String res = generate(path1Yml, path2Yml, "stylish");
         System.out.println(res);
     }
 }

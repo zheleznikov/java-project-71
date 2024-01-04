@@ -7,5 +7,10 @@
 ### Build app badge
 [![Build app](https://github.com/zheleznikov/java-project-71/actions/workflows/build-app.yml/badge.svg)](https://github.com/zheleznikov/java-project-71/actions/workflows/build-app.yml)
 
-### Flat json comparing
+Tool for comparing flat JSON or YML files. You can see how it works below.
+
+### Flat JSON comparing
 ![flat-json](demo/compare-flat-json.gif)
+
+### Flat YML comparing
+![flat-yml](demo/compare-flat-yml.gif)
