@@ -28,3 +28,5 @@ You can see how it works below.
 ![plain](demo/compare-as-plain-json.gif)
 
 
+- Success start hexlet running
+`git update-index --chmod=+x gradlew`
