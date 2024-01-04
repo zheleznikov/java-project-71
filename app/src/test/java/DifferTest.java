@@ -45,8 +45,6 @@ public final class DifferTest {
     }
 
     private static String expected(String pathToResult) throws IOException {
-        return FileUtils
-                .readFileToString(new File(pathToResult), StandardCharsets.UTF_8)
-                .replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
+        return FileUtils.readFileToString(new File(pathToResult), StandardCharsets.UTF_8);
     }
 }

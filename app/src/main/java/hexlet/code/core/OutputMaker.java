@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class OutputMaker {
 
-    private static final String LINE_SEPARATOR = "\r\n";
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     public static String makeOutputJson(Map<String, ValueStatus> sourceMap) {
         try {
