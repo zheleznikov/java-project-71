@@ -7,10 +7,21 @@
 ### Build app badge
 [![Build app](https://github.com/zheleznikov/java-project-71/actions/workflows/build-app.yml/badge.svg)](https://github.com/zheleznikov/java-project-71/actions/workflows/build-app.yml)
 
-Tool for comparing flat JSON or YML files. You can see how it works below.
+Tool for comparing flat JSON or YML files.
+To use it you should call the app and pass two file-paths and output format: stylish, json or plain.
+Default - stylish.
+
+E.g. `app path\to\firstfile.json path\to\secondfile.json --format plain`
+
+You can see how it works below.
 
 ### Flat JSON comparing
 ![flat-json](demo/compare-flat-json.gif)
 
 ### Flat YML comparing
 ![flat-yml](demo/compare-flat-yml.gif)
+
+### Select how output would look like: -f stylish or -f json
+![stylish-or-json](demo/compare-as-stylish-json.gif)
+
+
