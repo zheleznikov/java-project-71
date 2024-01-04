@@ -32,7 +32,7 @@ public class SourceFileHandler {
         }
     }
 
-    public static Map<String, ValueStatus> createJoinedMap(Map<String, Object> map1, Map<String, Object> map2) {
+    public static Map<String, ValueStatus> createComparedMap(Map<String, Object> map1, Map<String, Object> map2) {
         Map<String, ValueStatus> targetMap = new TreeMap<>(String::compareTo);
 
         map1.forEach((key1, value1) -> {

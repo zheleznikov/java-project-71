@@ -36,11 +36,11 @@ public final class DifferTest {
         return Stream.of(
                 Arguments.of(PATH_TO_JSON_1, PATH_TO_JSON_2, PATH_TO_EXPECTED_STYLISH, "stylish"),
                 Arguments.of(PATH_TO_JSON_1, PATH_TO_JSON_2, PATH_TO_EXPECTED_JSON, "json"),
-//                Arguments.of(pathToJson1, pathToJson2, pathToExpectedPlain, "plain"),
+                Arguments.of(PATH_TO_JSON_1, PATH_TO_JSON_2, PATH_TO_EXPECTED_PLAIN, "plain"),
 
                 Arguments.of(PATH_TO_YML_1, PATH_TO_YML_2, PATH_TO_EXPECTED_STYLISH, "stylish"),
-                Arguments.of(PATH_TO_YML_1, PATH_TO_YML_2, PATH_TO_EXPECTED_JSON, "json")
-//                Arguments.of(pathToYml1, pathToYml2, pathToExpectedPlain, "plain")
+                Arguments.of(PATH_TO_YML_1, PATH_TO_YML_2, PATH_TO_EXPECTED_JSON, "json"),
+                Arguments.of(PATH_TO_YML_1, PATH_TO_YML_2, PATH_TO_EXPECTED_PLAIN, "plain")
         );
     }
 

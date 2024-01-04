@@ -24,4 +24,7 @@ You can see how it works below.
 ### Select how output would look like: -f stylish or -f json
 ![stylish-or-json](demo/compare-as-stylish-json.gif)
 
+### Select how output would look like if selected format plain
+![plain](demo/compare-as-plain-json.gif)
+
 
