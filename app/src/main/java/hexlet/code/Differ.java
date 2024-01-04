@@ -1,4 +1,4 @@
-package hexlet.code.core;
+package hexlet.code;
 
 import hexlet.code.status.ValueStatus;
 

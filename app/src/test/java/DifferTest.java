@@ -1,4 +1,4 @@
-import hexlet.code.core.Differ;
+import hexlet.code.Differ;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
