@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 public final class DifferTest {
 
     private static final String PATH_TO_EXPECTED_JSON = "src/test/resources/testData/expected.json";
