@@ -12,10 +12,15 @@ User could add flag `--f` or `-format` additionally. Supports 3 output formats: 
 Here is a few examples how to start the app:
 
 `app path\to\firstfile.json path\to\secondfile.json --format plain` -> you'll get the result as plain
+
 `app path\to\firstfile.json path\to\secondfile.json --format json` -> you'll get the result as json
+
 `app path\to\firstfile.json path\to\secondfile.json` -> you'll get stylish result
+
 `app path\to\firstfile.yml path\to\secondfile.yml --format plain` -> you'll get the result as plain
+
 `app path\to\firstfile.yml path\to\secondfile.yml --format json` -> you'll get the result as json
+
 `app path\to\firstfile.yml path\to\secondfile.yml` -> you'll get stylish result
 
 You can see how it works below.
